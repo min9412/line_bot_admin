@@ -1,0 +1,6 @@
+*.pyc
+__pycache__
+env001
+db.sqlite3
+.DS_Store
+Line Bot 管理後台.docx

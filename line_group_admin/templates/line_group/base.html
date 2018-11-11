@@ -1,0 +1,48 @@
+{% load static %}
+
+<html>
+    <head>
+        <title>轉貼小幫手後台♥</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <link rel="stylesheet" href="{% static 'css/line_group.css' %}">
+    </head>
+    <body>
+        <div class="container">
+            <div class="row justify-content-md-center">
+                <div class="p-4 col-md-auto">
+                    <h1 class="display-4"><a href="/line-group/index">Line Bot Admin</a></h1>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="p-3 row">
+                <div class="col-xs-12 col-lg-2">
+                    <nav class="nav flex-column">
+                        {% if user.is_authenticated %}
+                            <h6 class="px-3 text-left">Logged as {{ user.username }}</h6>
+                            <h5><b><a class="nav-link text-left" href="{% url 'logout' %}">登出</a></b></h5>
+                        {% else %}
+                            <h5><b><a class="nav-link text-left" href="{% url 'social:begin' 'google-oauth2' %}">
+                                登入
+                            </a></b></h5>
+                        {% endif %}
+                        <h5><b><a class="nav-link text-left" href="/line-group/select-group">
+                                查詢 & 修改
+                        </a></b></h5>
+                        <h5><b><a class="nav-link text-left" href="/line-group/add-new-group">新增</a></b></h5>
+                    </nav>
+                </div>
+                <div class="col-xs-12 col-lg-10">
+                    {% if is_valid %}
+                        {% block content %}
+                        {% endblock %}
+                    {% else %}
+                        <h5>請先登入。</h5>
+                    {% endif %}
+                </div>   
+            </div>
+        </div>
+    </body>
+</html>
+
+

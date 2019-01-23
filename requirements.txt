@@ -1,0 +1,7 @@
+Django<2.2
+line-bot-sdk
+gunicorn
+psycopg2
+social-auth-app-django
+mysqlclient
+whitenoise

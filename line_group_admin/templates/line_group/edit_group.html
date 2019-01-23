@@ -7,6 +7,10 @@
 				<form method="POST" class="post-form">
 					{% csrf_token %}
 					<div class="form-group">
+			            <label for="InputLineGroupId">群組 Line ID：</label>
+				        {{ form.line_group_id }}
+				    </div>
+					<div class="form-group">
 			            <label for="InputLineGroup">群組名稱：</label>
 				        {{ form.line_group_name }}
 				    </div>

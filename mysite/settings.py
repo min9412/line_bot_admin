@@ -79,17 +79,21 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 # mysql://sq01d9cmdny9wxat:aoq0g7sytv0xfu55@g8r9w9tmspbwmsyo.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/x9inpg05innwbih1
+jawsdb_url = os.inviron.get('JAWSDB_URL', '')
+_, _, str1, db_name = jawsdb_url.split('')
+db_user, str1, db_port = str1.split(':')
+db_password, db_host = str1.split('@')
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'x9inpg05innwbih1',
-        'HOST': 'g8r9w9tmspbwmsyo.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
-        'PORT': '3306',
-        'USER': 'sq01d9cmdny9wxat',
-        'PASSWORD': 'aoq0g7sytv0xfu55',
+        'NAME': db_name,
+        'HOST': db_host,
+        'PORT': db_port,
+        'USER': db_user,
+        'PASSWORD': db_password,
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators

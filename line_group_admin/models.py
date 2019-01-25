@@ -10,8 +10,6 @@ class BaseModel(models.Model):
     deleted_at = models.DateTimeField(null=True, blank=True)
     deleted_by = models.CharField(max_length=100, blank=True)
 
-    objects = models.Manager()
-
     class Meta:
         abstract = True
 

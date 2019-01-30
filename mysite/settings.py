@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 
 import os
 
+env = os.environ.get('ENVIRONMENT_VAR', 'dev')
+
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -79,21 +82,33 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 # mysql://sq01d9cmdny9wxat:aoq0g7sytv0xfu55@g8r9w9tmspbwmsyo.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/x9inpg05innwbih1
-jawsdb_url = os.environ.get('JAWSDB_URL', '')
-_, _, str1, db_name = jawsdb_url.split('/')
-db_user, str1, db_port = str1.split(':')
-db_password, db_host = str1.split('@')
+if env == 'prod':
+    jawsdb_url = os.environ.get('JAWSDB_URL', '')
+    _, _, str1, db_name = jawsdb_url.split('/')
+    db_user, str1, db_port = str1.split(':')
+    db_password, db_host = str1.split('@')
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': db_name,
-        'HOST': db_host,
-        'PORT': db_port,
-        'USER': db_user,
-        'PASSWORD': db_password,
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': db_name,
+            'HOST': db_host,
+            'PORT': db_port,
+            'USER': db_user,
+            'PASSWORD': db_password,
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'line_bot',
+            'HOST': '127.0.0.1',
+            'PORT': '3306',
+            'USER': 'line_bot',
+            'PASSWORD': '2t,8^A]X-WTKdE2F',
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
@@ -130,6 +145,12 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'A-qBX26obSJ5yZ56P3yDkj2p'
 SOCIAL_AUTH_GOOGLE_OAUTH2_AUTH_EXTRA_ARGUMENTS = {
     'approval_prompt': 'force',
 }
+# fix for Specified key was too long
+SOCIAL_AUTH_UID_LENGTH = 190
+SOCIAL_AUTH_NONCE_SERVER_URL_LENGTH = 190
+SOCIAL_AUTH_ASSOCIATION_SERVER_URL_LENGTH = 190
+SOCIAL_AUTH_ASSOCIATION_HANDLE_LENGTH = 190
+SOCIAL_AUTH_EMAIL_LENGTH = 190
 
 LOGIN_URL = '/auth/login/google-oauth2/'
 
